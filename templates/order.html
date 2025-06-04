@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+{% if bike %}
+    <h2>Ваш велосипед зібраний:</h2>
+    <p>{{ bike.show }}</p>
+{% else %}
+    <h2>Оформити замовлення</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Замовити</button>
+    </form>
+{% endif %}
+
+
+
+{% endblock %}
