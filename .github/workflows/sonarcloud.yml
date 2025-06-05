@@ -24,12 +24,19 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          pip install coverage
+
+      - name: Run tests with coverage
+        run: |
+          coverage run manage.py test bikes
+          coverage xml
 
       - name: Run SonarCloud scan
         uses: SonarSource/sonarcloud-github-action@v2
         with:
-          projectBaseDir: .
+          args: >
+            -Dsonar.projectKey=kkkkkkkkatya_bike_shop
+            -Dsonar.organization=kkkkkkkkatya
+            -Dsonar.python.coverage.reportPaths=coverage.xml
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_PROJECT_KEY: kkkkkkkkatya_bike_shop
-          SONAR_ORGANIZATION: kkkkkkkkatya
